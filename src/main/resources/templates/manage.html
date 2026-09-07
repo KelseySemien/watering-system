@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Manage Water</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/styles.css}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        function updateSoilMoisture() {
+            fetch('/api/soil-moisture')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('soilMoisture').innerText = data.moistureLevel;
+                });
+        }
+
+        function updateWaterStatus() {
+            fetch('/api/water-status')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('waterStatus').innerText = data.status;
+                });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            updateSoilMoisture();
+            updateWaterStatus();
+
+            fetch('/api/pump-activities')
+                .then(response => response.json())
+                .then(data => {
+                    const labels = data.map(entry => new Date(entry.timestamp).toLocaleDateString());
+                    const activity = data.map(entry => entry.manuallyTriggered ? 'Manually' : 'Automatically');
+
+                    const ctx = document.getElementById('pumpActivityChart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: 'Pump Activity',
+                                data: activity,
+                                borderColor: 'rgba(75, 192, 192, 1)',
+                                borderWidth: 1,
+                                fill: false
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                x: {
+                                    type: 'time',
+                                    time: {
+                                        unit: 'day'
+                                    }
+                                },
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        });
+                    });
+                });
+
+            setInterval(updateSoilMoisture, 60000); // Update every 60 seconds
+            setInterval(updateWaterStatus, 60000); // Update every 60 seconds
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Manage Water</h1>
+        <p>Soil Moisture Level: <span id="soilMoisture">Loading...</span></p>
+        <p>Water Status: <span id="waterStatus">Loading...</span></p>
+        <canvas id="pumpActivityChart"></canvas>
+        <a href="/">Back to Home</a>
+    </div>
+</body>
+</html>
+

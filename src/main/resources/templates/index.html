@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Automated Watering System</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/styles.css}">
+    <script>
+        function updateSoilMoisture() {
+            fetch('/api/soil-moisture')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('soilMoisture').innerText = data.moistureLevel;
+                });
+        }
+
+        setInterval(updateSoilMoisture, 60000); // Update every 60 seconds
+    </script>
+</head>
+<body onload="updateSoilMoisture()">
+    <div class="container">
+        <h1>Automated Watering System</h1>
+        <p>Date and Time: <span th:text="${currentDate}"></span></p>
+        <p>Soil Moisture Level: <span id="soilMoisture" th:text="${soilMoisture}">Loading...</span></p>
+        <form action="/manage-water" method="get">
+            <button type="submit">Water Status</button>
+        </form>
+    </div>
+</body>
+</html>
+
+

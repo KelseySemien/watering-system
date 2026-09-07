@@ -1,0 +1,54 @@
+body {
+    font-family: 'Brush Script MT', cursive; /* Script font */
+    background-image: url('/background.jpg'); /* Background image of a garden */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: #c64780; /*  text */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+h1 {
+    color:#c64780 ; /* headings */
+    text-align: center;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    background-color: #80b680; /* container background */
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center; /* Center text inside the container */
+}
+
+button {
+    padding: 10px 20px;
+    margin-top: 20px;
+    background-color: #c64780; /*  button */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #2daf21; /* hover */
+}
+
+a {
+    color: #f89dc6; /*  links */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
