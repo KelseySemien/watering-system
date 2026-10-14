@@ -77,8 +77,6 @@ The soil moisture sensor was calibrated by:
 4. **Graphical Display** – Display historical soil moisture data in a graph within the UI
 5. **Mobile App** – Create a mobile application for remote monitoring
 
-## Acknowledgements
-This project was developed as part of the IT-700 Capstone in Information Technology at Southern New Hampshire University.
 
 ## References
 - Adafruit Industries. (n.d.). Soil sensor. Retrieved from https://www.adafruit.com/product/4026
